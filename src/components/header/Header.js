@@ -3,10 +3,14 @@ import './_header.scss'
 import {FaBars} from "react-icons/fa";
 import {  MdApps, MdNotifications} from "react-icons/md";
 import { AiOutlineSearch } from "react-icons/ai";
-function Header( ) {
+const  Header = ({ handleToggleSidebar }) =>  {
     return (
         <div className="border border-dark header">
-           <FaBars className="header__menu" size={26} />
+           <FaBars
+               className="header__menu"
+               size={26}
+               onClick={() =>  handleToggleSidebar()}
+           />
             <img
                 src="http://pngimg.com/uploads/youtube/youtube_PNG2.png"
                 alt="logo"
