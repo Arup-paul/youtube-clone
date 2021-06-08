@@ -5,7 +5,7 @@ import {  MdApps, MdNotifications} from "react-icons/md";
 import { AiOutlineSearch } from "react-icons/ai";
 const  Header = ({ handleToggleSidebar }) =>  {
     return (
-        <div className="border border-dark header">
+        <div className="header">
            <FaBars
                className="header__menu"
                size={26}
