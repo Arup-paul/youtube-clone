@@ -9,9 +9,12 @@ import {
     MdSubscriptions,
     MdThumbUp
 } from "react-icons/md";
-function Sidebar() {
+const  Sidebar = ({ sidebar,handleToggleSidebar }) =>  {
     return (
-        <nav className="border border-danger sidebar">
+        <nav
+            className={sidebar ? ' open sidebar' : 'sidebar close'}
+            onClick={() => handleToggleSidebar(false)}
+        >
             <li>
                 <MdHome size={23} />
                 <span>Home</span>
