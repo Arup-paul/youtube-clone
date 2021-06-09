@@ -1,7 +1,7 @@
 import React, { useState,useEffect } from 'react';
 import  { useSelector  } from 'react-redux';
 import { useHistory } from "react-router-dom";
-
+import WatchScreen from './screens/watchScreen/WatchScreen'
 import Header from "./components/header/Header";
 import Sidebar from "./components/sidebar/Sidebar";
 import {Container} from "react-bootstrap";
@@ -67,6 +67,12 @@ const  App = () =>  {
                 <h1>Search Result</h1>
             </Layout>
         </Route>
+
+        <Route path="/watch/:id" exact>
+              <Layout>
+                  <WatchScreen />
+               </Layout>
+       </Route>
 
             <Route>
                 <Redirect to="/" />
