@@ -1,7 +1,7 @@
 import { HOME_VIDEOS_REQUEST,HOME_VIDEOS_SUCCESS,HOME_VIDEOS_FAIL} from '../actionType'
 import request from '../../api'
 
-export const getPopularVideos = () => async dispatch => {
+export const getPopularVideos = () => async (dispatch,getState) => {
   try {
 
     dispatch({
@@ -22,7 +22,7 @@ export const getPopularVideos = () => async dispatch => {
       type:HOME_VIDEOS_SUCCESS,
       payload:{
           videos: data.items,
-          nextPageToken:data.nextPageToken,
+          pageToken:getState().homeVideos.nextPageToken,
           category:'All'
 
       }
