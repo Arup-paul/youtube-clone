@@ -4,23 +4,28 @@ import numeral from 'numeral'
 import {MdThumbUp,MdThumbDown} from 'react-icons/md'
 import './_videoMetaData.scss'
 import ShowMoreText from 'react-show-more-text'
-function VideoMetaData() {
+const VideoMetaData = ({video:{snippet,statistics},videoId}) => {
+
+    const {channelId,channelTitle,description,title,publishedAt} = snippet;
+    const {viewCount,likeCount,dislikesCount} = statistics;
+
+
     return (
         <div className="videoMetaData py-2">
             <div className="videoMetaData__top">
-                <h5>Video Title</h5>
+                <h5>{title}</h5>
                 <div className="d-flex justify-content-between align-items-center py-1">
                      <span>
-                         {numeral(1000000).format("0.a")} Views •
-                         {moment('2020-06-09').fromNow()}
+                         {numeral(viewCount).format("0.a")} Views •
+                         {moment(publishedAt).fromNow()}
                      </span>
 
                 <div>
                     <span className="m-1">
-                        <MdThumbUp size={26} /> {numeral(1000000).format("0.a")}
+                        <MdThumbUp size={26} /> {numeral(likeCount).format("0.a")}
                     </span>
                     <span className="m-1">
-                         <MdThumbDown size={26}  /> {numeral(1000000).format("0.a")}
+                         <MdThumbDown size={26}  /> {numeral(dislikesCount).format("0.a")}
                     </span>
                 </div>
             </div>
@@ -33,7 +38,7 @@ function VideoMetaData() {
                     className="rounded-circle  "
                 />
                 <div className="d-flex flex-column m-1">
-                    <span>Rio Online</span>
+                    <span>{channelTitle}</span>
                     <span>{numeral(1000000).format("0.a")} Subscribers </span>
                 </div>
                 </div>
@@ -49,7 +54,7 @@ function VideoMetaData() {
                   anchorClass="showMoreText"
                   expanded={false}
                >
-                   Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                   {description}
                </ShowMoreText>
             </div>
         </div>

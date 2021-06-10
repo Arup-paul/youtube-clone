@@ -5,6 +5,7 @@ import request from '../../api'
 import moment from 'moment'
 import numeral from 'numeral'
 import {AiFillEye} from "react-icons/ai";
+import { useHistory } from 'react-router-dom'
 
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 
@@ -32,6 +33,8 @@ function Video({ video }) {
 
     const _videoId = id ?.videoId || id;
 
+    const history = useHistory()
+
     useEffect(() => {
          const get_video_details = async() => {
           const {data:{items}} =  await request('/videos',{
@@ -58,8 +61,13 @@ function Video({ video }) {
         }
         get_channel_icon()
     },[channelId])
+
+    const handleVideoClick = () => {
+          history.push(`/watch/${_videoId}`)
+    }
+
     return (
-        <div className="video">
+        <div className="video" onClick={handleVideoClick}>
             <div className="video__top">
                 {/*<img src={medium.url} alt=""/>*/}
                 <LazyLoadImage
