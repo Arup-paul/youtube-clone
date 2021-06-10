@@ -4,12 +4,14 @@ import thunk from "redux-thunk";
 import { authReducer } from "./reducers/auth.reducer";
 import { homeVideoReducer,selectedVideoReducer } from "./reducers/videos.reducer";
 import { channelDetailsReducer } from "./reducers/channel.reducer";
+import { commentListReducer } from "./reducers/comments.reducer";
 
   const rootReducer = combineReducers({
       auth:authReducer,
       homeVideos:homeVideoReducer,
       selectedVideo:selectedVideoReducer,
-      channelDetails:channelDetailsReducer
+      channelDetails:channelDetailsReducer,
+      commentList:commentListReducer
   })
 
 const store = createStore(

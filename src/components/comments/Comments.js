@@ -1,14 +1,34 @@
-import React from 'react';
+import React, { useEffect,useState } from 'react';
 import './_comments.scss'
+import { useDispatch,useSelector } from 'react-redux'
+import { getCommentsById,addComment } from '../../redux/actions/comments.action'
 import Comment from '../comment/Comment'
-function Comments( ) {
-    const handleComment = () => {
-        
+function Comments({ videoId,totalComments }) {
+
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(getCommentsById(videoId))
+        console.log(comments)
+    },[videoId,dispatch])
+
+    const comments  = useSelector(state => state.commentList.comments)
+
+    const [text,setText] = useState("");
+
+     const _comments = Object.values(comments)?.map(
+        comment => comment.snippet.topLevelComment.snippet
+    )
+    const handleComment = (e) => {
+         e.preventDefault();
+         if(text.length ===0) return;
+         dispatch(addComment(videoId,text))
+        setText('')
     }
 
     return (
         <div className="comments">
-             <p>1234</p>
+             <p>{totalComments} Comments</p>
             <dib className="comments__form d_flex w-100 my-2">
                 <div className="d-flex">
                 <img
@@ -21,6 +41,8 @@ function Comments( ) {
                         type="text"
                         className="flex-grow-1"
                         placeholder="write a comment...."
+                        value={text}
+                        onChange={e=>setText(e.target.value)}
                     />
                     <button className="border-0 p-2">
                         Comment
@@ -30,8 +52,9 @@ function Comments( ) {
             </dib>
             <div className="comment__list">
                 {
-                    [...Array(15)].map(() => (
-                        <Comment />
+
+                    _comments?.map((comment,i) => (
+                        <Comment comment={comment} key={i}/>
                     ))
                 }
             </div>
