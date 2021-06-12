@@ -13,6 +13,8 @@ function Comments({ videoId,totalComments }) {
     },[videoId,dispatch])
 
     const comments  = useSelector(state => state.commentList.comments)
+    const  user  = useSelector(state=>state.auth?.user)
+
 
     const [text,setText] = useState("");
 
@@ -32,8 +34,8 @@ function Comments({ videoId,totalComments }) {
             <dib className="comments__form d_flex w-100 my-2">
                 <div className="d-flex">
                 <img
-                    src="https://i.pinimg.com/originals/51/f6/fb/51f6fb256629fc755b8870c801092942.png"
-                    alt=""
+                    src={user?.photoURL}
+                    alt="avatar"
                     className="rounded-circle mr-3"
                 />
                 <form onSubmit={handleComment} className="d-flex flex-grow-1 m-1">

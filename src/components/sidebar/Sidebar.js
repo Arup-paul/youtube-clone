@@ -35,6 +35,7 @@ const  Sidebar = ({ sidebar,handleToggleSidebar }) =>  {
                 <span>Subscriptions</span>
             </li>
             </Link>
+
             <li>
                 <MdThumbUp size={23} />
                 <span>Like</span>

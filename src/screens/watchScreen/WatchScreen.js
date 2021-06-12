@@ -4,6 +4,7 @@ import {Col, Row} from "react-bootstrap";
 import { useDispatch,useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import {Helmet} from "react-helmet";
 import VideoMetaData from '../../components/videoMetaData/VideoMetaData'
 import VideoHorizontal from '../../components/videoHorizontal/VideoHorizontal'
 import Comments from '../../components/comments/Comments'
@@ -25,6 +26,9 @@ function WatchScreen() {
     const { video,loading } = useSelector(state => state.selectedVideo)
 
     return  <Row>
+        <Helmet>
+            <title>{video?.snippet?.title}</title>
+        </Helmet>
         <Col lg={8}>
              <div className="watchScreen__player">
                  <iframe
