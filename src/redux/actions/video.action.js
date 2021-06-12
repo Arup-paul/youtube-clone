@@ -8,6 +8,9 @@ import {
   RELATED_VIDEOS_REQUEST,
   RELATED_VIDEOS_SUCCESS,
   RELATED_VIDEOS_FAIL,
+  SEARCH_VIDEOS_REQUEST,
+  SEARCH_VIDEOS_SUCCESS,
+  SEARCH_VIDEOS_FAIL,
 } from '../actionType'
 import request from '../../api'
 
@@ -134,6 +137,38 @@ export const getRelatedVideos = (id) => async dispatch => {
     dispatch({
       type: RELATED_VIDEOS_FAIL,
       payload:error.response.data.message
+    })
+  }
+}
+
+
+
+export const getVideosBySearch = (keyword) => async (dispatch) => {
+  try {
+
+    dispatch({
+      type:SEARCH_VIDEOS_REQUEST
+    })
+    const { data } = await request('/search',{
+      params:{
+        part:"snippet",
+        maxResults:8,
+        q:keyword,
+        type:'video,channel'
+      }
+    })
+
+
+    dispatch({
+      type:SEARCH_VIDEOS_SUCCESS,
+      payload: data.items,
+    })
+  }
+  catch (error){
+    console.log(error.message)
+    dispatch({
+      type:SEARCH_VIDEOS_FAIL,
+      payload:error.message
     })
   }
 }
