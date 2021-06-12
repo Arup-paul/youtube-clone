@@ -1,6 +1,5 @@
  
 ## Demo
 
-https://yt-clone-arup1.web.app/feed/subscriptions
-
+https://yt-clone-arup1.web.app/
   
