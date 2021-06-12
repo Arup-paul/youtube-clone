@@ -11,6 +11,9 @@ import {
   SEARCH_VIDEOS_REQUEST,
   SEARCH_VIDEOS_SUCCESS,
   SEARCH_VIDEOS_FAIL,
+  SUBSCRIPTION_CHANNEL_REQUEST,
+  SUBSCRIPTION_CHANNEL_SUCCESS,
+  SUBSCRIPTION_CHANNEL_FAIL
 } from '../actionType'
 import request from '../../api'
 
@@ -172,4 +175,36 @@ export const getVideosBySearch = (keyword) => async (dispatch) => {
     })
   }
 }
+
+
+export const getSubscriptionChannel = () => async (dispatch,getState) => {
+  try{
+
+    dispatch({
+       type:SUBSCRIPTION_CHANNEL_REQUEST
+    })
+
+    const { data }  = await request('/subscriptions',{
+      params: {
+        part:'snippet,contentDetails',
+        mine:true
+      },
+      headers:{
+        Authorization:`Bearer ${getState().auth.accessToken}`,
+      }
+    })
+
+    dispatch({
+      type:SUBSCRIPTION_CHANNEL_SUCCESS,
+      payload:data.items
+    })
+  }catch(error) {
+    dispatch({
+      type:SUBSCRIPTION_CHANNEL_FAIL,
+      payload:error.response.data
+    })
+
+  }
+}
+
 

@@ -3,6 +3,7 @@ import  { useSelector  } from 'react-redux';
 import { useHistory } from "react-router-dom";
 import WatchScreen from './screens/watchScreen/WatchScreen'
 import SearchScreen from './screens/watchScreen/searchScreen'
+import SubscriptionScreen from './screens/subscriptionScreen/SubscriptionScreen'
 import Header from "./components/header/Header";
 import Sidebar from "./components/sidebar/Sidebar";
 import {Container} from "react-bootstrap";
@@ -80,6 +81,12 @@ const  App = () =>  {
                   <WatchScreen />
                </Layout>
        </Route>
+
+            <Route path="/feed/subscriptions" exact>
+                <Layout>
+                      <SubscriptionScreen />
+                </Layout>
+            </Route>
 
             <Route>
                 <Redirect to="/" />

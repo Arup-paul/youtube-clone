@@ -8,7 +8,7 @@ import numeral from 'numeral'
 import {AiFillEye} from "react-icons/ai";
 
 import { LazyLoadImage } from 'react-lazy-load-image-component';
-function VideoHorizontal({video,searchScreen}) {
+function VideoHorizontal({video,searchScreen,subScreen}) {
 
     const {
         id,
@@ -18,11 +18,13 @@ function VideoHorizontal({video,searchScreen}) {
             description,
             title,
             publishedAt,
-            thumbnails:{medium}
+            thumbnails:{medium},
+            resourceId
         },
+
     } = video
 
-    const isVideo = id.kind === 'youtube#video'
+    const isVideo = !(id.kind === 'youtube#channel' || subScreen)
 
 
     const [views,setViews] = useState(null);
@@ -40,8 +42,10 @@ function VideoHorizontal({video,searchScreen}) {
             setDuration(items[0].contentDetails.duration)
             setViews(items[0].statistics.viewCount)
         }
-        get_video_details()
-    },[id])
+        if(isVideo){
+            get_video_details()
+        }
+    },[id,isVideo])
 
     useEffect(() => {
         const get_channel_icon = async() => {
@@ -60,10 +64,12 @@ function VideoHorizontal({video,searchScreen}) {
     const _duration = moment.utc(seconds * 1000).format("mm:ss")
 
     const history = useHistory()
+    const _channelId = resourceId?.channelId || id.channelId
+
     const handleClick = () => {
           isVideo
               ? history.push(`/watch/${id.videoId}`)
-              : history.push(`/channel/${id.channelId}`)
+              : history.push(`/channel/${_channelId}`)
 
     }
 
@@ -75,7 +81,7 @@ function VideoHorizontal({video,searchScreen}) {
             className="videoHorizontal m-1 py-2 align-items-center"
             onClick={handleClick}
         >
-         <Col xs={6} md={searchScreen ? 4 : 6} className="videoHorizontal__left">
+         <Col xs={6} md={searchScreen || subScreen ? 4 : 6} className="videoHorizontal__left">
              <LazyLoadImage
                  src={medium.url}
                  effect="blur"
@@ -87,7 +93,7 @@ function VideoHorizontal({video,searchScreen}) {
              )}
 
          </Col>
-          <Col xs={6} md={searchScreen ? 8 : 6} className="videoHorizontal__right p-0">
+          <Col xs={6} md={searchScreen || subScreen ? 8 : 6} className="videoHorizontal__right p-0">
                 <p className="videoHorizonta__title mb-1">
                     {title}
                 </p>
@@ -99,7 +105,8 @@ function VideoHorizontal({video,searchScreen}) {
               )}
 
 
-              {isVideo && <p className='mt-1'>
+              {(searchScreen || subScreen) &&
+              <p className='mt-1 videoHorizontal__desc'>
                   {description}
               </p>
               }
@@ -113,6 +120,14 @@ function VideoHorizontal({video,searchScreen}) {
                   )}
                   <p className="mb-0">{channelTitle}</p>
               </div>
+              {subScreen && (
+                  <p className="mt-2">
+                      {
+                          video.contentDetails.totalItemCount
+                      }{' '} Videos
+                  </p>
+              )
+              }
             </Col>
         </Row>
     );

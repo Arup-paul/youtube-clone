@@ -3,7 +3,7 @@ import './_header.scss'
 import {FaBars} from "react-icons/fa";
 import {  MdApps, MdNotifications} from "react-icons/md";
 import { AiOutlineSearch } from "react-icons/ai";
-import { useHistory } from 'react-router-dom'
+import { useHistory ,Link} from 'react-router-dom'
 const  Header = ({ handleToggleSidebar }) =>  {
 
     const [input,setInput] = useState('');
@@ -12,7 +12,7 @@ const  Header = ({ handleToggleSidebar }) =>  {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        history.push(`search/${input}`)
+        history.push(`/search/${input}`)
     }
 
 
@@ -23,11 +23,13 @@ const  Header = ({ handleToggleSidebar }) =>  {
                size={26}
                onClick={() =>  handleToggleSidebar()}
            />
+            <Link to="/">
             <img
                 src="http://pngimg.com/uploads/youtube/youtube_PNG2.png"
                 alt="logo"
                 className="header__logo"
             />
+            </Link>
             <form onSubmit={handleSubmit}>
                 <input
                     type="text"

@@ -1,6 +1,7 @@
 import React from 'react';
 import './_sidebar.scss'
 import { useDispatch } from "react-redux";
+import { Link } from 'react-router-dom'
 import { log_out } from '../../redux/actions/auth.action'
 import {
     MdExitToApp,
@@ -22,14 +23,18 @@ const  Sidebar = ({ sidebar,handleToggleSidebar }) =>  {
             className={sidebar ? ' open sidebar' : 'sidebar close'}
             onClick={() => handleToggleSidebar(false)}
         >
+            <Link to="/">
             <li>
                 <MdHome size={23} />
                 <span>Home</span>
             </li>
-            <li>
+            </Link>
+            <Link to="/feed/subscriptions">
+            <li >
                 <MdSubscriptions size={23} />
                 <span>Subscriptions</span>
             </li>
+            </Link>
             <li>
                 <MdThumbUp size={23} />
                 <span>Like</span>
